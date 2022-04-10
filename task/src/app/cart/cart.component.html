@@ -1,0 +1,15 @@
+<div>
+    <h4>Shopping Cart</h4>
+    <hr />
+    <div *ngIf="(cartService.cartItems | async) as cartItems">
+        <div class="row" *ngFor="let item of cartItems">
+            <div class="col-sm-6">{{item.name}}</div>
+            <div class="col-sm-6">${{item.price}}</div>
+        </div>
+        <hr *ngIf="cartItems.length > 0"/>
+        <div class="row" *ngIf="cartItems.length > 0">
+            <div class="col-sm-6">Total</div>
+            <div class="col-sm-6">{{priceTotal(cartItems)}}</div>
+        </div>
+    </div>
+</div>
