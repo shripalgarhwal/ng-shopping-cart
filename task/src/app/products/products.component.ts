@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { EMPTY, fromEvent, iif, Observable, of } from 'rxjs';
+import { EMPTY, fromEvent, iif, Observable, of, Subscription } from 'rxjs';
 import { mapTo, map, distinctUntilChanged, filter, debounceTime, switchMap, tap, mergeMap } from 'rxjs/operators';
 import { Product } from '../models/products';
 import { ProductsService } from '../services/products.service';
@@ -10,6 +10,7 @@ import { ProductsService } from '../services/products.service';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
+  private keyUpEvent?: Subscription;
   @ViewChild('searchField') searchField?: ElementRef;
   public productList?: Observable<Product[]>;
   constructor(public readonly productsService: ProductsService) { }
@@ -18,7 +19,7 @@ export class ProductsComponent implements OnInit {
     this.productList = this.productsService.recommendeds()
   }
   ngAfterViewInit() {
-    fromEvent(this.searchField?.nativeElement, 'keyup').pipe(
+    this.keyUpEvent = fromEvent(this.searchField?.nativeElement, 'keyup').pipe(
       map((event: any) => event.target.value),
       distinctUntilChanged(),
       debounceTime(1000),
@@ -33,5 +34,7 @@ export class ProductsComponent implements OnInit {
       this.productList = of(data)
     })
   }
-
+  ngDestroyed() {
+    this.keyUpEvent?.unsubscribe();
+  }
 }
