@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-lg-8 col-xl-8 col-sm-8 p-0">
+            <div class="form-outline mb-4 mt-3">
+                <input type="search" class="form-control" #searchField placeholder="Search products" aria-label="Search" />
+            </div>
+            <div class="row row-cols-md-3 g-4">
+                <app-product class="col" *ngFor="let product of productList | async" [product]="product"></app-product>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-xl-4 col-sm-4 mt-2">
+            <app-cart></app-cart>
+        </div>
+    </div>
+</div>
