@@ -34,7 +34,7 @@ export class ProductsComponent implements OnInit {
       this.productList = of(data)
     })
   }
-  ngDestroyed() {
+  ngOnDestroyed() {
     this.keyUpEvent?.unsubscribe();
   }
 }
