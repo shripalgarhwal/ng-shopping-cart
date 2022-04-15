@@ -1,0 +1,5 @@
+<div>
+    <button (click)="prev()" [disabled]="isFirst">Prev</button>
+    {{pageNo}}/{{totalPages}}
+    <button (click)="next()" [disabled]="isLast">Next</button>
+</div>

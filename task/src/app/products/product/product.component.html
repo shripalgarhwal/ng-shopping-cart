@@ -1,14 +1,14 @@
 <div class="card h-100">
     <img [src]="product?.defaultImage" class="card-img-top" />
     <div class="card-body">
-        <h6 class="card-title">{{product?.name}}</h6>
+        <h5 class="card-title">{{product?.name}}</h5>
         <p class="text-muted mb-4">{{product?.description}}</p>
-        <div class="d-flex justify-content-between">
-            <span>Price</span><span>${{product?.price}}</span>
+        <div class="justify-content-between">
+            <span>Price</span><span> ${{product?.price}}</span>
         </div>
     </div>
     <div class="card-footer">
-        <button class="btn btn-primary" 
+        <button class="btn" 
             [disabled]="addedToCart" 
             (click)="buyProduct(product)">Add To Cart</button>
     </div>

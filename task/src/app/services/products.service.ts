@@ -15,4 +15,7 @@ export class ProductsService {
   searchProduct(searchText: string) {
     return this.http.get<Product[]>(`http://localhost:8080/products/?q=${searchText}`)
   }
+  searchProductsByPage(pageNo: number, pageSize: number) {
+    return this.http.get<Product[]>(`http://localhost:8080/products/?_page=${pageNo}&_limit=${pageSize}`);
+  }
 }

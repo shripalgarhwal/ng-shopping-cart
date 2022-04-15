@@ -1,14 +1,17 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-lg-8 col-xl-8 col-sm-8 p-0">
-            <div class="form-outline mb-4 mt-3">
+        <div class="col-8 p-0">
+            <div class="form-outline mb-0-5 mt-1">
                 <input type="search" class="form-control" #searchField placeholder="Search products" aria-label="Search" />
             </div>
-            <div class="row row-cols-md-3 g-4">
-                <app-product class="col" *ngFor="let product of productList | async" [product]="product"></app-product>
+            <div class="grid">
+                <app-product class="col mt-0-5 mb-0-5" *ngFor="let product of productList | async" [product]="product"></app-product>
+            </div>
+            <div *ngIf="!renderRecommended">
+                <app-pagination [totalPages]="totalPages" (pageChange)="pageChange($event)"></app-pagination>
             </div>
         </div>
-        <div class="col-md-4 col-lg-4 col-xl-4 col-sm-4 mt-2">
+        <div class="col-4 mt-1 pl-1 pr-1">
             <app-cart></app-cart>
         </div>
     </div>
