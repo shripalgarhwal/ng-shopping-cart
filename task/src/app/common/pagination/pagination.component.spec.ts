@@ -1,28 +1,44 @@
+import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { first } from 'rxjs/operators';
-
 import { PaginationComponent } from './pagination.component';
 
+
+@Component({
+  selector: 'wrapper-component',
+  template: '<app-pagination [totalPages]="2" (pageChange)="pageChange($event)"></app-pagination>',
+})
+class WrapperComponent {
+  @ViewChild(PaginationComponent, {static: true}) paginationComponent!: PaginationComponent;
+  pageChange($event: number): void {
+  }
+}
+
 describe('PaginationComponent', () => {
+  let wrapperComponent: WrapperComponent;
   let component: PaginationComponent;
-  let fixture: ComponentFixture<PaginationComponent>;
+  let fixture: ComponentFixture<WrapperComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PaginationComponent ]
+      declarations: [ WrapperComponent, PaginationComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PaginationComponent);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(WrapperComponent);
+    wrapperComponent = fixture.componentInstance;
+    component = wrapperComponent.paginationComponent;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should get totalPages as input', () => {
+    expect(component.totalPages).toBe(2);
   });
   it('should be able to click next button to navigate on next page', () => {
     let selectedPage: number = 1;
@@ -46,12 +62,10 @@ describe('PaginationComponent', () => {
     expect(prevBtn.nativeElement.disabled).toBeTruthy();
   });
   it('should be disable next button on last page', () => {
-    //component.pageNo = 2;
     const nextBtn = fixture.debugElement.query(By.css('.next-btn'));
     nextBtn.triggerEventHandler('click', null);
     fixture.detectChanges();
     expect(component.isLast).toBe(true);
-    console.log('::::::::', nextBtn.nativeElement);
     expect(nextBtn.nativeElement.disabled).toBeTruthy();
   });
 });
