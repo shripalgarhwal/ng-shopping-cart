@@ -2,15 +2,15 @@
     <h4 class="mt-0">Shopping Cart</h4>
     <hr />
     <div *ngIf="(cartService.cartItems | async) as cartItems">
-        <div class="row" *ngFor="let item of cartItems; let itemIndex = index">
+        <div class="row p-1" *ngFor="let item of cartItems; let itemIndex = index">
             <div class="col-4">{{item.name}}</div>
             <div class="col-4">${{item.price}}</div>
             <div class="col-4">
-                <button (click)="cartService.removeCard(item)">Remove</button>
+                <button class="btn" (click)="cartService.removeCard(item)">Remove</button>
             </div>
         </div>
         <hr *ngIf="cartItems.length > 0"/>
-        <div class="row" *ngIf="cartItems.length > 0">
+        <div class="row p-1" *ngIf="cartItems.length > 0">
             <div class="col-4">Total</div>
             <div class="col-4">{{priceTotal(cartItems)}}</div>
         </div>
