@@ -12,6 +12,7 @@ import { ProductComponent } from './product.component';
 class WrapperComponent {
   @ViewChild(ProductComponent, {static: true}) productComponent!: ProductComponent;
   product = {
+    "id": 5,
     "name": "Incredible Metal Sausages",
     "description": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
     "defaultImage": "http://placeimg.com/640/480/cats",
@@ -58,7 +59,7 @@ describe('ProductComponent', () => {
     const addToCartBtn = fixture.debugElement.query(By.css('.btn'));
     const service = fixture.debugElement.injector.get(CartService);
     let spyAddtoCart = spyOn(service,"addToCard").and.callFake((product) => {
-      expect(product.name).toBe('Incredible Metal Sausages');
+      expect(product.id).toBe(5);
     });
     addToCartBtn.triggerEventHandler('click', null);
     expect(spyAddtoCart).toHaveBeenCalled();
